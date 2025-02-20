@@ -93,7 +93,7 @@ bot.on('text', (ctx) => {
     // Ignore messages that are not part of the game
     bot.telegram.sendMessage(chatId, "Please send a valid letter to guess. Example: 'w'.");
   } else if (!users[chatId] && !message.startsWith('/')) {
-    bot.telegram.sendMessage(chatId, "Type /play to start a new game.");
+return
   }
 });
 
