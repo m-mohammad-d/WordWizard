@@ -21,7 +21,7 @@ let users = {};  // Store the current state for each user
 function startGame(chatId) {
   const currentWord = words[Math.floor(Math.random() * words.length)];
   
-  const currentAnswer = '_'.repeat(currentWord.length);
+  const currentAnswer = '_'.repeat(currentWord.length);  // Display underscores instead of the word
 
   // Initialize the user state if not already
   if (!users[chatId]) {
@@ -39,7 +39,7 @@ function startGame(chatId) {
 // Function to process the user's guess
 function processGuess(chatId, guess) {
   if (!users[chatId]) {
-    bot.telegram.sendMessage(chatId, "You need to start a game first. Type /start to begin.");
+    bot.telegram.sendMessage(chatId, "You need to start a game first. Type /play to begin.");
     return;
   }
 
@@ -81,8 +81,8 @@ bot.on('text', (ctx) => {
   const chatId = ctx.chat.id;
   const message = ctx.message.text.trim();
 
-  // Check if the message is a guess (only one letter, not a command)
-  if (message.length === 1 && /^[a-zA-Z]$/.test(message)) {
+  // Check if the user has started a game and if it's a valid letter guess
+  if (users[chatId] && message.length === 1 && /^[a-zA-Z]$/.test(message)) {
     processGuess(chatId, message);
   } else if (!message.startsWith('/')) {
     bot.telegram.sendMessage(chatId, "Please send a valid letter to guess. Example: 'w'.");
