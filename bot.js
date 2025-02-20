@@ -71,7 +71,7 @@ function processGuess(chatId, guess) {
 }
 
 // Command to start the game
-bot.command('start', (ctx) => {
+bot.command('play', (ctx) => {
   const chatId = ctx.chat.id;
   startGame(chatId);
 });
